@@ -3,6 +3,7 @@ import PowerButton from "./components/PowerButton";
 
 function App() {
   const [isPowered, setIsPowered] = useState(false);
+  const [isBooted, setIsBooted] = useState(false);
 
   //Background interaction
   useEffect(() => {
@@ -24,20 +25,27 @@ function App() {
 
   //Scroll Lock Control
   useEffect(() => {
-    if(!isPowered) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isBooted ? "auto" : "hidden";
+    return () => (document.body.style.overflow = "auto");
+  }, [isBooted]);
 
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isPowered]);
+  const handlePower = () => {
+    if (isPowered) return;
+
+    setIsPowered(true);
+
+    //Boot delay for visible transformation
+    setTimeout(() => {
+      setIsBooted(true);
+    }, 600);
+  };
 
   return(
     <div className="w-screen h-screen bg-reactive text-white relative overflow-hidden">
-      {!isPowered && <PowerButton onPower={() => setIsPowered(true)}/>}
+      <PowerButton onPower={handlePower} isBooted={isBooted}/>
+
+      {/* vertical space for future wire */}
+      {isBooted && <div className="h-[200vh]"/>}
     </div>
   );
 }
