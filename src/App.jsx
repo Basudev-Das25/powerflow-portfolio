@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import PowerButton from "./components/PowerButton";
 
 function App() {
   const [isPowered, setIsPowered] = useState(false);
@@ -37,11 +37,7 @@ function App() {
 
   return(
     <div className="w-screen h-screen bg-reactive text-white relative overflow-hidden">
-      {!isPowered && (
-        <button onClick={() => setIsPowered(true)} className="absolute inset-0 m-auto w-24 h-24 rounded-full border border-power text-power hover:shadow-glow transition-all duration-300">
-          POWER
-        </button>
-      )}
+      {!isPowered && <PowerButton onPower={() => setIsPowered(true)}/>}
     </div>
   );
 }
