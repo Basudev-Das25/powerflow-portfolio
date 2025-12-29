@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PowerButton from "./components/PowerButton";
+import WireSystem from "./components/WireSystem";
 
 function App() {
   const [isPowered, setIsPowered] = useState(false);
@@ -43,6 +44,7 @@ function App() {
   return(
     <div className="w-screen h-screen bg-reactive text-white relative overflow-hidden">
       <PowerButton onPower={handlePower} isBooted={isBooted}/>
+      <WireSystem isBooted={isBooted} />
 
       {/* vertical space for future wire */}
       {isBooted && <div className="h-[200vh]"/>}
