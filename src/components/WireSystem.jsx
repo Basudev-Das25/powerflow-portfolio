@@ -1,18 +1,24 @@
-export default function WireSystem({ isBooted }) {
-    if (!isBooted) return null;
+export default function WireSystem({ isBooted, start }) {
+  if (!isBooted || !start) return null;
 
-    return (
-        <svg className="fixed top-0 left-0 w-full h-full pointer-events-none z-10" viewBox="0 0 1000 2000" preserveAspectRatio="none">
-            <path 
-            d="
-            M 80 80
-            H 400 v600
-            "
-            fill="none"
-            stroke="#00f6ff"
-            strokeWidth="2"
-            strokeLinecap="round"
-            />
-        </svg>
-    );
+  const x = start.x ?? 0;
+  const y = start.y ?? 0;
+
+  return (
+    <svg
+      className="fixed top-0 left-0 w-full h-full pointer-events-none z-10" viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`} preserveAspectRatio="none"
+    >
+      <path
+        d={`
+          M ${x} ${y}
+          H ${x + 300}
+          V ${y + 500}
+        `}
+        fill="none"
+        stroke="#00f6ff"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 }
